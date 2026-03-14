@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Past Simple vs Past Continuous – Interactive Lesson</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e0f14;
+    --surface: #16181f;
+    --card: #1c1f2a;
+    --border: #2a2d3a;
+    --accent1: #f5c842;
+    --accent2: #5b8af5;
+    --accent3: #f55b7a;
+    --accent4: #5bf5b8;
+    --text: #e8eaf0;
+    --muted: #8890a4;
+    --success: #4ade80;
+    --error: #f87171;
+    --warning: #fbbf24;
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0e0f14 0%, #1a1030 50%, #0e1420 100%);
+    padding: 60px 24px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 50%;
+    transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(91,138,245,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(245,200,66,0.12);
+    border: 1px solid rgba(245,200,66,0.3);
+    color: var(--accent1);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 30px;
+    margin-bottom: 18px;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+  }
+  .hero h1 span.y { color: var(--accent1); }
+  .hero h1 span.b { color: var(--accent2); }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 15px;
+    margin-bottom: 28px;
+  }
+
+  /* PROGRESS BAR */
+  .progress-wrap {
+    max-width: 700px;
+    margin: 0 auto 24px;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent2), var(--accent1));
+    border-radius: 10px;
+    transition: width 0.6s cubic-bezier(.4,0,.2,1);
+    width: 0%;
+  }
+
+  /* SCORE BADGE */
+  .score-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 30px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .score-badge .num {
+    font-family: 'DM Mono', monospace;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--accent1);
+  }
+
+  /* MAIN LAYOUT */
+  .container {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 32px 20px 80px;
+  }
+
+  /* SECTION HEADERS */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .section-desc {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
+  /* THEORY CARDS */
+  .theory-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+  @media(max-width:600px){ .theory-grid { grid-template-columns: 1fr; } }
+
+  .theory-card {
+    border-radius: var(--radius);
+    padding: 22px;
+    border: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+  .theory-card.ps {
+    background: linear-gradient(135deg, #1c1f2a, #1a1530);
+    border-color: rgba(245,200,66,0.25);
+  }
+  .theory-card.pc {
+    background: linear-gradient(135deg, #1c1f2a, #0f1a2e);
+    border-color: rgba(91,138,245,0.25);
+  }
+  .theory-card h3 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .badge-ps {
+    background: rgba(245,200,66,0.15);
+    color: var(--accent1);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .badge-pc {
+    background: rgba(91,138,245,0.15);
+    color: var(--accent2);
+    border-radius: 6px;
+    padding: 3px 10px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .theory-card p {
+    font-size: 13.5px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 10px;
+  }
+  .theory-card .rule {
+    background: rgba(255,255,255,0.04);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12.5px;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+  .time-words {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 10px;
+  }
+  .tw {
+    font-size: 11.5px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .tw.y { background: rgba(245,200,66,0.1); color: var(--accent1); border: 1px solid rgba(245,200,66,0.2); }
+  .tw.b { background: rgba(91,138,245,0.1); color: var(--accent2); border: 1px solid rgba(91,138,245,0.2); }
+
+  /* EXERCISE BLOCKS */
+  .ex-block {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .ex-block:hover { border-color: rgba(91,138,245,0.3); }
+  .ex-block.answered-correct { border-color: rgba(74,222,128,0.4); }
+  .ex-block.answered-wrong { border-color: rgba(248,113,113,0.4); }
+
+  .ex-num {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .ex-type-badge {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .type-mc { background: rgba(91,138,245,0.15); color: var(--accent2); }
+  .type-fill { background: rgba(245,200,66,0.15); color: var(--accent1); }
+  .type-open { background: rgba(245,91,122,0.15); color: var(--accent3); }
+  .type-trans { background: rgba(91,245,184,0.15); color: var(--accent4); }
+  .type-error { background: rgba(251,191,36,0.15); color: var(--warning); }
+
+  .ex-q {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .hint-word {
+    display: inline-block;
+    background: rgba(245,200,66,0.08);
+    border: 1px solid rgba(245,200,66,0.2);
+    color: var(--accent1);
+    border-radius: 4px;
+    padding: 0 6px;
+    font-size: 13px;
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* MULTIPLE CHOICE */
+  .mc-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .mc-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    font-size: 14px;
+    background: var(--surface);
+  }
+  .mc-opt:hover { border-color: var(--accent2); background: rgba(91,138,245,0.05); }
+  .mc-opt input[type=radio] { accent-color: var(--accent2); width: 16px; height: 16px; cursor: pointer; }
+  .mc-opt.correct-opt { border-color: var(--success); background: rgba(74,222,128,0.07); color: var(--success); }
+  .mc-opt.wrong-opt { border-color: var(--error); background: rgba(248,113,113,0.07); color: var(--error); }
+
+  /* FILL IN */
+  .fill-input {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    width: 100%;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+  .fill-input:focus { border-color: var(--accent2); }
+  .fill-input.correct { border-color: var(--success); background: rgba(74,222,128,0.05); }
+  .fill-input.wrong { border-color: var(--error); background: rgba(248,113,113,0.05); }
+  .fill-inline {
+    display: inline-block;
+    width: 160px;
+    background: var(--surface);
+    border: none;
+    border-bottom: 2px solid var(--accent2);
+    border-radius: 0;
+    padding: 2px 6px;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    outline: none;
+    vertical-align: middle;
+    transition: border-color 0.2s;
+  }
+  .fill-inline:focus { border-bottom-color: var(--accent1); }
+  .fill-inline.correct { border-bottom-color: var(--success); }
+  .fill-inline.wrong { border-bottom-color: var(--error); }
+
+  /* OPEN / TEXTAREA */
+  .open-textarea {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    transition: border-color 0.2s;
+    outline: none;
+    line-height: 1.6;
+  }
+  .open-textarea:focus { border-color: var(--accent3); }
+
+  /* FEEDBACK */
+  .feedback {
+    margin-top: 10px;
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    display: none;
+    line-height: 1.5;
+  }
+  .feedback.show { display: block; }
+  .feedback.ok { background: rgba(74,222,128,0.1); color: var(--success); border: 1px solid rgba(74,222,128,0.2); }
+  .feedback.bad { background: rgba(248,113,113,0.1); color: var(--error); border: 1px solid rgba(248,113,113,0.2); }
+  .feedback.info { background: rgba(91,138,245,0.1); color: var(--accent2); border: 1px solid rgba(91,138,245,0.2); }
+
+  /* CHECK BUTTON */
+  .check-btn {
+    margin-top: 12px;
+    background: linear-gradient(135deg, var(--accent2), #3a5fc5);
+    border: none;
+    border-radius: 8px;
+    padding: 9px 20px;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+  .check-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+  .check-btn:active { transform: translateY(0); }
+  .check-btn:disabled { opacity: 0.4; cursor: default; transform: none; }
+
+  /* SECTION DIVIDER */
+  .section-sep {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 40px 0 32px;
+  }
+
+  /* SUBMIT FINAL */
+  .final-submit {
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-top: 40px;
+  }
+  .final-submit h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+  .final-submit p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+  .submit-btn {
+    background: linear-gradient(135deg, var(--accent1), #d4a012);
+    border: none;
+    border-radius: 10px;
+    padding: 14px 36px;
+    color: #0e0f14;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(245,200,66,0.25); }
+
+  /* RESULTS PANEL */
+  .results-panel {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    margin-top: 40px;
+  }
+  .results-panel.show { display: block; }
+  .big-score {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+  .score-grade {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .results-panel p { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+  .reset-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 24px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+  .reset-btn:hover { border-color: var(--accent2); }
+
+  /* SENTENCE BLANKS INLINE */
+  .sentence-line { margin-bottom: 12px; line-height: 2.2; font-size: 15px; }
+
+  /* MATCHING / SORT */
+  .sort-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    background: var(--surface);
+  }
+  .sort-item select {
+    flex-shrink: 0;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    padding: 4px 8px;
+    font-size: 13px;
+    outline: none;
+    cursor: pointer;
+  }
+  .sort-item select:focus { border-color: var(--accent2); }
+
+  /* CORRECTION */
+  .error-line {
+    background: rgba(248,113,113,0.07);
+    border-left: 3px solid var(--error);
+    padding: 8px 12px;
+    border-radius: 0 8px 8px 0;
+    font-size: 14.5px;
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 6px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    margin-top: 36px;
+  }
+  .section-label-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+  .section-label-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .tip-box {
+    background: rgba(91,245,184,0.06);
+    border: 1px solid rgba(91,245,184,0.2);
+    border-radius: 10px;
+    padding: 14px 18px;
+    font-size: 13.5px;
+    color: var(--accent4);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  .tip-box strong { color: #fff; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-tag">English Grammar – Grade 9</div>
+  <h1><span class="y">Past Simple</span> <span style="color:var(--muted)">vs</span><br><span class="b">Past Continuous</span></h1>
+  <p class="hero-sub">Master the difference between completed actions and ongoing ones in the past</p>
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Your progress</span>
+      <span id="progressText">0 / 35 answered</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+  <div class="score-badge">
+    <span>Live Score</span>
+    <span class="num" id="livScore">0</span>
+    <span style="color:var(--muted)">/</span>
+    <span class="num" id="livTotal">100</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ===== THEORY ===== -->
+  <div class="section-label">
+    <span class="section-label-text">📖 Theory</span>
+    <div class="section-label-line"></div>
+  </div>
+  <div class="theory-grid">
+    <div class="theory-card ps">
+      <h3><span class="badge-ps">Past Simple</span></h3>
+      <p>Used for actions that <strong>started and finished</strong> in the past. The action is complete — it's over.</p>
+      <div class="rule">Subject + V₂ (or didn't + V₁)</div>
+      <div class="rule">She <strong>called</strong> him yesterday.</div>
+      <p style="margin-top:8px; font-size:12px;">⏱ Time expressions:</p>
+      <div class="time-words">
+        <span class="tw y">yesterday</span><span class="tw y">last night</span><span class="tw y">last year</span><span class="tw y">ago</span><span class="tw y">in 2005</span><span class="tw y">once</span><span class="tw y">when I was young</span><span class="tw y">finally</span>
+      </div>
+    </div>
+    <div class="theory-card pc">
+      <h3><span class="badge-pc">Past Continuous</span></h3>
+      <p>Used when:<br>
+        <strong>1.</strong> Two actions happen at the <strong>same time</strong> in the past<br>
+        <strong>2.</strong> A longer action is <strong>interrupted</strong> by a shorter one<br>
+        <strong>3.</strong> Setting the <strong>scene / background</strong> in a story
+      </p>
+      <div class="rule">Subject + was/were + V-ing</div>
+      <div class="rule">It <strong>was raining</strong> when I left.</div>
+      <p style="margin-top:8px; font-size:12px;">⏱ Time expressions:</p>
+      <div class="time-words">
+        <span class="tw b">while</span><span class="tw b">when</span><span class="tw b">at that moment</span><span class="tw b">at 8 o'clock</span><span class="tw b">all day</span><span class="tw b">as</span><span class="tw b">at the time</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PART A: MULTIPLE CHOICE ===== -->
+  <div class="section-label">
+    <span class="section-label-text">A — Multiple Choice</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">Choose the correct tense. Pay attention to time expressions and context!</p>
+
+  <!-- Q1 -->
+  <div class="ex-block" id="ex1">
+    <div class="ex-num"><span>Q1</span><span class="ex-type-badge type-mc">Multiple Choice</span></div>
+    <div class="ex-q">Tom _______ to music <span class="hint-word">when</span> his phone rang.</div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q1" value="a"> listened</label>
+      <label class="mc-opt"><input type="radio" name="q1" value="b"> was listening</label>
+      <label class="mc-opt"><input type="radio" name="q1" value="c"> is listening</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q1','b','ex1','Tom was <b>listening</b> to music (ongoing action) when his phone rang (interrupted it). ✅ The keyword <em>when</em> signals interruption → Past Continuous.')">Check</button>
+    <div class="feedback" id="fb-q1"></div>
+  </div>
+
+  <!-- Q2 -->
+  <div class="ex-block" id="ex2">
+    <div class="ex-num"><span>Q2</span><span class="ex-type-badge type-mc">Multiple Choice</span></div>
+    <div class="ex-q">We _______ a great movie <span class="hint-word">last Saturday</span>.</div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q2" value="a"> watched</label>
+      <label class="mc-opt"><input type="radio" name="q2" value="b"> were watching</label>
+      <label class="mc-opt"><input type="radio" name="q2" value="c"> watch</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q2','a','ex2','<em>Last Saturday</em> = specific finished time → Past Simple: <b>watched</b>. ✅')">Check</button>
+    <div class="feedback" id="fb-q2"></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="ex-block" id="ex3">
+    <div class="ex-num"><span>Q3</span><span class="ex-type-badge type-mc">Multiple Choice</span></div>
+    <div class="ex-q"><span class="hint-word">While</span> Maya _______ dinner, the lights went out.</div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q3" value="a"> cooked</label>
+      <label class="mc-opt"><input type="radio" name="q3" value="b"> was cooking</label>
+      <label class="mc-opt"><input type="radio" name="q3" value="c"> has cooked</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q3','b','ex3','<em>While</em> introduces the ongoing background action → Past Continuous: <b>was cooking</b>. ✅')">Check</button>
+    <div class="feedback" id="fb-q3"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="ex-block" id="ex4">
+    <div class="ex-num"><span>Q4</span><span class="ex-type-badge type-mc">Multiple Choice</span></div>
+    <div class="ex-q">My parents _______ to Japan <span class="hint-word">three years ago</span>.</div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q4" value="a"> were traveling</label>
+      <label class="mc-opt"><input type="radio" name="q4" value="b"> traveled</label>
+      <label class="mc-opt"><input type="radio" name="q4" value="c"> travel</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q4','b','ex4','<em>Three years ago</em> = finished, specific time → Past Simple: <b>traveled</b>. ✅')">Check</button>
+    <div class="feedback" id="fb-q4"></div>
+  </div>
+
+  <!-- Q5 -->
+  <div class="ex-block" id="ex5">
+    <div class="ex-num"><span>Q5</span><span class="ex-type-badge type-mc">Multiple Choice</span></div>
+    <div class="ex-q"><span class="hint-word">At 9 PM last night</span>, she _______ her homework.</div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q5" value="a"> did</label>
+      <label class="mc-opt"><input type="radio" name="q5" value="b"> was doing</label>
+      <label class="mc-opt"><input type="radio" name="q5" value="c"> does</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q5','b','ex5','<em>At 9 PM last night</em> = action in progress at a specific moment → Past Continuous: <b>was doing</b>. ✅')">Check</button>
+    <div class="feedback" id="fb-q5"></div>
+  </div>
+
+  <!-- Q6 -->
+  <div class="ex-block" id="ex6">
+    <div class="ex-num"><span>Q6</span><span class="ex-type-badge type-mc">Multiple Choice</span></div>
+    <div class="ex-q">The children _______ in the park <span class="hint-word">while</span> their parents _______ on the bench.</div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q6" value="a"> played / were sitting</label>
+      <label class="mc-opt"><input type="radio" name="q6" value="b"> were playing / sat</label>
+      <label class="mc-opt"><input type="radio" name="q6" value="c"> were playing / were sitting</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q6','c','ex6','Two actions happening at the <em>same time</em> (<em>while</em>) → both Past Continuous: <b>were playing / were sitting</b>. ✅')">Check</button>
+    <div class="feedback" id="fb-q6"></div>
+  </div>
+
+  <!-- Q7 -->
+  <div class="ex-block" id="ex7">
+    <div class="ex-num"><span>Q7</span><span class="ex-type-badge type-mc">Multiple Choice</span></div>
+    <div class="ex-q">I _______ my keys <span class="hint-word">when</span> I was cleaning my room.</div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q7" value="a"> was finding</label>
+      <label class="mc-opt"><input type="radio" name="q7" value="b"> found</label>
+      <label class="mc-opt"><input type="radio" name="q7" value="c"> have found</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q7','b','ex7','<em>Found</em> = a sudden, short action that interrupts the longer one (cleaning). Short interrupting action → Past Simple. ✅')">Check</button>
+    <div class="feedback" id="fb-q7"></div>
+  </div>
+
+  <!-- ===== PART B: FILL IN THE BLANKS ===== -->
+  <div class="section-label">
+    <span class="section-label-text">B — Fill in the Blanks</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">Write the correct form of the verb in brackets. Watch the time clues!</p>
+
+  <div class="tip-box">
+    💡 <strong>Remember:</strong> Past Continuous = <em>was/were + verb-ing</em> &nbsp;|&nbsp; Past Simple = <em>V₂</em> (regular: add -ed, irregular: learn the forms!)
+  </div>
+
+  <!-- Q8 -->
+  <div class="ex-block" id="ex8">
+    <div class="ex-num"><span>Q8</span><span class="ex-type-badge type-fill">Fill In</span></div>
+    <div class="ex-q sentence-line">
+      She <input class="fill-inline" id="q8" placeholder="(study)"> for her exam <span class="hint-word">all evening</span>.
+    </div>
+    <button class="check-btn" onclick="checkFill('q8',['was studying'],'ex8','<em>All evening</em> = extended duration → Past Continuous: <b>was studying</b> ✅')">Check</button>
+    <div class="feedback" id="fb-q8"></div>
+  </div>
+
+  <!-- Q9 -->
+  <div class="ex-block" id="ex9">
+    <div class="ex-num"><span>Q9</span><span class="ex-type-badge type-fill">Fill In</span></div>
+    <div class="ex-q sentence-line">
+      They <input class="fill-inline" id="q9" placeholder="(leave)"> the party <span class="hint-word">at midnight</span>.
+    </div>
+    <button class="check-btn" onclick="checkFill('q9',['left'],'ex9','<em>At midnight</em> = a specific completed moment → Past Simple: <b>left</b> ✅')">Check</button>
+    <div class="feedback" id="fb-q9"></div>
+  </div>
+
+  <!-- Q10 -->
+  <div class="ex-block" id="ex10">
+    <div class="ex-num"><span>Q10</span><span class="ex-type-badge type-fill">Fill In</span></div>
+    <div class="ex-q sentence-line">
+      <span class="hint-word">While</span> Dad <input class="fill-inline" id="q10a" placeholder="(cook)"> dinner, the kids <input class="fill-inline" id="q10b" placeholder="(do)"> their homework.
+    </div>
+    <button class="check-btn" onclick="checkFillMulti(['q10a','q10b'],['was cooking','were doing'],'ex10','Two parallel actions (<em>while</em>) → both Past Continuous: <b>was cooking / were doing</b> ✅')">Check</button>
+    <div class="feedback" id="fb-q10"></div>
+  </div>
+
+  <!-- Q11 -->
+  <div class="ex-block" id="ex11">
+    <div class="ex-num"><span>Q11</span><span class="ex-type-badge type-fill">Fill In</span></div>
+    <div class="ex-q sentence-line">
+      I <input class="fill-inline" id="q11" placeholder="(not see)"> her <span class="hint-word">yesterday</span>.
+    </div>
+    <button class="check-btn" onclick="checkFill('q11',["didn't see","did not see"],'ex11','Negative Past Simple: <b>didn\'t see</b> ✅')">Check</button>
+    <div class="feedback" id="fb-q11"></div>
+  </div>
+
+  <!-- Q12 -->
+  <div class="ex-block" id="ex12">
+    <div class="ex-num"><span>Q12</span><span class="ex-type-badge type-fill">Fill In</span></div>
+    <div class="ex-q sentence-line">
+      The dog <input class="fill-inline" id="q12" placeholder="(bark)"> <span class="hint-word">when</span> the stranger knocked on the door.
+    </div>
+    <button class="check-btn" onclick="checkFill('q12',['was barking'],'ex12','The dog\'s barking was the ongoing background action when interrupted → Past Continuous: <b>was barking</b> ✅')">Check</button>
+    <div class="feedback" id="fb-q12"></div>
+  </div>
+
+  <!-- Q13 -->
+  <div class="ex-block" id="ex13">
+    <div class="ex-num"><span>Q13</span><span class="ex-type-badge type-fill">Fill In</span></div>
+    <div class="ex-q sentence-line">
+      He <input class="fill-inline" id="q13" placeholder="(slip)"> and <input class="fill-inline" id="q13b" placeholder="(fall)"> <span class="hint-word">while</span> he was running.
+    </div>
+    <button class="check-btn" onclick="checkFillMulti(['q13','q13b'],['slipped','fell'],'ex13','Two quick completed actions that interrupt the running → Past Simple: <b>slipped / fell</b> ✅')">Check</button>
+    <div class="feedback" id="fb-q13"></div>
+  </div>
+
+  <!-- ===== PART C: CLASSIFY ===== -->
+  <div class="section-label">
+    <span class="section-label-text">C — Classify the Sentence</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">For each sentence, choose whether it uses the correct tense and identify WHY (which rule applies).</p>
+
+  <div id="ex14" class="ex-block">
+    <div class="ex-num"><span>Q14</span><span class="ex-type-badge type-mc">Classify</span></div>
+    <div class="ex-q">Why does <em>"Past Continuous"</em> appear here? → <strong>"I was sleeping at 7 AM."</strong></div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q14" value="a"> Two parallel actions</label>
+      <label class="mc-opt"><input type="radio" name="q14" value="b"> Action in progress at a specific time</label>
+      <label class="mc-opt"><input type="radio" name="q14" value="c"> Action interrupted by another</label>
+      <label class="mc-opt"><input type="radio" name="q14" value="d"> Completed finished action</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q14','b','ex14','<em>At 7 AM</em> = specific time in past. The action (sleeping) was in progress at that moment → rule: <b>action in progress at a specific time</b>. ✅')">Check</button>
+    <div class="feedback" id="fb-q14"></div>
+  </div>
+
+  <div id="ex15" class="ex-block">
+    <div class="ex-num"><span>Q15</span><span class="ex-type-badge type-mc">Classify</span></div>
+    <div class="ex-q">Why does <em>"Past Continuous"</em> appear here? → <strong>"She was reading while he was watching TV."</strong></div>
+    <div class="mc-options">
+      <label class="mc-opt"><input type="radio" name="q15" value="a"> Action interrupted by another</label>
+      <label class="mc-opt"><input type="radio" name="q15" value="b"> Action in progress at a specific time</label>
+      <label class="mc-opt"><input type="radio" name="q15" value="c"> Two parallel simultaneous actions</label>
+    </div>
+    <button class="check-btn" onclick="checkMC('q15','c','ex15','Both actions were happening at the same time (<em>while</em>) → rule: <b>two parallel simultaneous actions</b>. ✅')">Check</button>
+    <div class="feedback" id="fb-q15"></div>
+  </div>
+
+  <!-- ===== PART D: ERROR CORRECTION ===== -->
+  <div class="section-label">
+    <span class="section-label-text">D — Spot & Fix the Error</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">Each sentence has one tense mistake. Find it and write the corrected sentence below.</p>
+
+  <div class="ex-block" id="ex16">
+    <div class="ex-num"><span>Q16</span><span class="ex-type-badge type-error">Error Correction</span></div>
+    <div class="error-line">✗ &nbsp;She was going to the store yesterday and bought milk.</div>
+    <div class="ex-q" style="margin-top:12px;">Write the corrected sentence:</div>
+    <textarea class="open-textarea" id="q16" style="min-height:70px" placeholder="She..."></textarea>
+    <button class="check-btn" onclick="checkOpen('q16','ex16','✅ Correct: <b>She went to the store yesterday and bought milk.</b><br><small>Both actions are completed, finished events (yesterday) → Past Simple: <em>went</em>, not <em>was going</em>.</small>')">Check / See Answer</button>
+    <div class="feedback" id="fb-q16"></div>
+  </div>
+
+  <div class="ex-block" id="ex17">
+    <div class="ex-num"><span>Q17</span><span class="ex-type-badge type-error">Error Correction</span></div>
+    <div class="error-line">✗ &nbsp;I did my homework while my sister cooked dinner.</div>
+    <div class="ex-q" style="margin-top:12px;">Write the corrected sentence:</div>
+    <textarea class="open-textarea" id="q17" style="min-height:70px" placeholder="I..."></textarea>
+    <button class="check-btn" onclick="checkOpen('q17','ex17','✅ Correct: <b>I was doing my homework while my sister was cooking dinner.</b><br><small>Two parallel simultaneous actions (<em>while</em>) → both Past Continuous.</small>')">Check / See Answer</button>
+    <div class="feedback" id="fb-q17"></div>
+  </div>
+
+  <div class="ex-block" id="ex18">
+    <div class="ex-num"><span>Q18</span><span class="ex-type-badge type-error">Error Correction</span></div>
+    <div class="error-line">✗ &nbsp;He was breaking his leg when he was skiing last winter.</div>
+    <div class="ex-q" style="margin-top:12px;">Write the corrected sentence:</div>
+    <textarea class="open-textarea" id="q18" style="min-height:70px" placeholder="He..."></textarea>
+    <button class="check-btn" onclick="checkOpen('q18','ex18','✅ Correct: <b>He broke his leg when he was skiing last winter.</b><br><small>Breaking the leg = short, sudden interrupting action → Past Simple. Skiing = the ongoing background → Past Continuous.</small>')">Check / See Answer</button>
+    <div class="feedback" id="fb-q18"></div>
+  </div>
+
+  <!-- ===== PART E: TRANSLATION ===== -->
+  <div class="section-label">
+    <span class="section-label-text">E — Translation (עברית → English)</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">Translate the sentences from Hebrew to English. Use the correct past tense!</p>
+
+  <div class="ex-block" id="ex19">
+    <div class="ex-num"><span>Q19</span><span class="ex-type-badge type-trans">Translation</span></div>
+    <div class="ex-q" dir="rtl" style="text-align:right; font-size:16px;">אתמול בלילה ראיתי סרט מדהים.</div>
+    <textarea class="open-textarea" id="q19" placeholder="Last night I..." style="min-height:70px"></textarea>
+    <button class="check-btn" onclick="checkOpen('q19','ex19','✅ <b>Last night I watched an amazing movie.</b><br><small>Completed action + <em>last night</em> → Past Simple: <em>watched</em>.</small>')">Check / See Answer</button>
+    <div class="feedback" id="fb-q19"></div>
+  </div>
+
+  <div class="ex-block" id="ex20">
+    <div class="ex-num"><span>Q20</span><span class="ex-type-badge type-trans">Translation</span></div>
+    <div class="ex-q" dir="rtl" style="text-align:right; font-size:16px;">בזמן שאני הלכתי לבית הספר, ירד גשם.</div>
+    <textarea class="open-textarea" id="q20" placeholder="While I was..." style="min-height:70px"></textarea>
+    <button class="check-btn" onclick="checkOpen('q20','ex20','✅ <b>While I was walking to school, it was raining.</b> or <b>While I was walking to school, it rained.</b><br><small><em>While</em> + ongoing walking → Past Continuous. Rain can be Past Simple (event) or Continuous (background).</small>')">Check / See Answer</button>
+    <div class="feedback" id="fb-q20"></div>
+  </div>
+
+  <div class="ex-block" id="ex21">
+    <div class="ex-num"><span>Q21</span><span class="ex-type-badge type-trans">Translation</span></div>
+    <div class="ex-q" dir="rtl" style="text-align:right; font-size:16px;">הוא שיחק כדורגל כשנפצע.</div>
+    <textarea class="open-textarea" id="q21" placeholder="He was..." style="min-height:70px"></textarea>
+    <button class="check-btn" onclick="checkOpen('q21','ex21','✅ <b>He was playing football when he got injured.</b><br><small>Playing = ongoing background (Past Continuous). Getting injured = sudden interruption (Past Simple).</small>')">Check / See Answer</button>
+    <div class="feedback" id="fb-q21"></div>
+  </div>
+
+  <div class="ex-block" id="ex22">
+    <div class="ex-num"><span>Q22</span><span class="ex-type-badge type-trans">Translation</span></div>
+    <div class="ex-q" dir="rtl" style="text-align:right; font-size:16px;">לפני שנה היא גרה בתל אביב.</div>
+    <textarea class="open-textarea" id="q22" placeholder="A year ago..." style="min-height:70px"></textarea>
+    <button class="check-btn" onclick="checkOpen('q22','ex22','✅ <b>A year ago she lived in Tel Aviv.</b><br><small><em>A year ago</em> = completed/past fact → Past Simple: <em>lived</em>.</small>')">Check / See Answer</button>
+    <div class="feedback" id="fb-q22"></div>
+  </div>
+
+  <!-- ===== PART F: OPEN WRITING ===== -->
+  <div class="section-label">
+    <span class="section-label-text">F — Open Writing</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">Write your own sentences using both tenses. Aim for natural, interesting sentences!</p>
+
+  <div class="ex-block" id="ex23">
+    <div class="ex-num"><span>Q23</span><span class="ex-type-badge type-open">Open Writing</span></div>
+    <div class="ex-q">Write a sentence using <strong>Past Simple</strong> with the time expression <span class="hint-word">two weeks ago</span>.</div>
+    <textarea class="open-textarea" id="q23" placeholder="Two weeks ago I..."></textarea>
+    <button class="check-btn" onclick="checkOpen('q23','ex23','✅ Great! Make sure you used a past simple verb (V₂). Example: <b>Two weeks ago I visited my grandparents.</b>')">Submit</button>
+    <div class="feedback" id="fb-q23"></div>
+  </div>
+
+  <div class="ex-block" id="ex24">
+    <div class="ex-num"><span>Q24</span><span class="ex-type-badge type-open">Open Writing</span></div>
+    <div class="ex-q">Write a sentence using <strong>Past Continuous</strong> with the time expression <span class="hint-word">at 10 o'clock last night</span>.</div>
+    <textarea class="open-textarea" id="q24" placeholder="At 10 o'clock last night I was..."></textarea>
+    <button class="check-btn" onclick="checkOpen('q24','ex24','✅ Great! Make sure you used <em>was/were + verb-ing</em>. Example: <b>At 10 o\'clock last night I was watching a series.</b>')">Submit</button>
+    <div class="feedback" id="fb-q24"></div>
+  </div>
+
+  <div class="ex-block" id="ex25">
+    <div class="ex-num"><span>Q25</span><span class="ex-type-badge type-open">Open Writing</span></div>
+    <div class="ex-q">Write a sentence combining <strong>both tenses</strong> using <span class="hint-word">when</span> (one action interrupts another).</div>
+    <textarea class="open-textarea" id="q25" placeholder="I was ... when ..."></textarea>
+    <button class="check-btn" onclick="checkOpen('q25','ex25','✅ Excellent! Example: <b>I was taking a shower when the electricity went off.</b><br><small>The longer action (Past Continuous) is interrupted by the shorter one (Past Simple).</small>')">Submit</button>
+    <div class="feedback" id="fb-q25"></div>
+  </div>
+
+  <div class="ex-block" id="ex26">
+    <div class="ex-num"><span>Q26</span><span class="ex-type-badge type-open">Open Writing</span></div>
+    <div class="ex-q">Write a sentence using <strong>Past Continuous</strong> with <span class="hint-word">while</span> to show two things happening at the same time.</div>
+    <textarea class="open-textarea" id="q26" placeholder="While I was ... , my friend was ..."></textarea>
+    <button class="check-btn" onclick="checkOpen('q26','ex26','✅ Nicely done! Example: <b>While I was cooking, my sister was setting the table.</b>')">Submit</button>
+    <div class="feedback" id="fb-q26"></div>
+  </div>
+
+  <!-- ===== PART G: STORY COMPLETION ===== -->
+  <div class="section-label">
+    <span class="section-label-text">G — Complete the Story</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">Fill in the blanks to complete the story. Use Past Simple or Past Continuous as needed.</p>
+
+  <div class="ex-block" id="ex27">
+    <div class="ex-num"><span>Q27–Q32</span><span class="ex-type-badge type-fill">Story Cloze</span></div>
+    <div class="ex-q" style="line-height: 2.4; font-size: 15px;">
+      <strong>A Strange Morning</strong><br><br>
+      Last Tuesday, I <input class="fill-inline" id="q27" placeholder="(wake up)"> very late. The sun
+      <input class="fill-inline" id="q28" placeholder="(shine)"> brightly and birds
+      <input class="fill-inline" id="q29" placeholder="(sing)"> outside. I <input class="fill-inline" id="q30" placeholder="(run)"> downstairs quickly when I
+      <input class="fill-inline" id="q31" placeholder="(realize)"> — it was Sunday! I
+      <input class="fill-inline" id="q32" placeholder="(laugh)"> and went back to bed.
+    </div>
+    <button class="check-btn" onclick="checkStory()">Check All</button>
+    <div class="feedback" id="fb-q27"></div>
+  </div>
+
+  <!-- ===== PART H: TIME WORD MATCHING ===== -->
+  <div class="section-label">
+    <span class="section-label-text">H — Match Time Expressions</span>
+    <div class="section-label-line"></div>
+  </div>
+  <p class="section-desc">For each time expression, choose whether it is typically used with Past Simple or Past Continuous.</p>
+
+  <div class="ex-block" id="ex33">
+    <div class="ex-num"><span>Q33–Q35</span><span class="ex-type-badge type-mc">Matching</span></div>
+    <div class="sort-item"><span style="flex:1"><span class="hint-word">for three hours</span></span>
+      <select id="tw1">
+        <option value="">-- Choose --</option>
+        <option value="pc">Past Continuous</option>
+        <option value="ps">Past Simple</option>
+        <option value="both">Both possible</option>
+      </select>
+    </div>
+    <div class="sort-item"><span style="flex:1"><span class="hint-word">in 1990</span></span>
+      <select id="tw2">
+        <option value="">-- Choose --</option>
+        <option value="pc">Past Continuous</option>
+        <option value="ps">Past Simple</option>
+        <option value="both">Both possible</option>
+      </select>
+    </div>
+    <div class="sort-item"><span style="flex:1"><span class="hint-word">while</span></span>
+      <select id="tw3">
+        <option value="">-- Choose --</option>
+        <option value="pc">Past Continuous</option>
+        <option value="ps">Past Simple</option>
+        <option value="both">Both possible</option>
+      </select>
+    </div>
+    <button class="check-btn" onclick="checkMatching()">Check All</button>
+    <div class="feedback" id="fb-q33"></div>
+  </div>
+
+  <!-- FINAL SUBMIT -->
+  <div class="final-submit" id="finalSubmit">
+    <h2>🎉 Ready to Submit?</h2>
+    <p>Make sure you've answered all the questions above before submitting for your final score.</p>
+    <button class="submit-btn" onclick="finalSubmit()">Submit & Get My Grade</button>
+  </div>
+
+  <div class="results-panel" id="resultsPanel">
+    <div class="big-score" id="bigScore"></div>
+    <div class="score-grade" id="scoreGrade"></div>
+    <p id="scoreMsg"></p>
+    <button class="reset-btn" onclick="resetAll()">↺ Start Over</button>
+  </div>
+
+</div>
+
+<script>
+// ===== STATE MANAGEMENT WITH LOCALSTORAGE =====
+const STORAGE_KEY = 'past_tenses_lesson_v1';
+let state = {
+  answers: {},
+  score: 0,
+  totalAnswered: 0,
+  submitted: false,
+  startTime: Date.now()
+};
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){}
+}
+
+function loadState() {
+  try {
+    const s = localStorage.getItem(STORAGE_KEY);
+    if (s) state = { ...state, ...JSON.parse(s) };
+  } catch(e){}
+}
+
+// ===== PROGRESS =====
+const TOTAL_Q = 35;
+function updateProgress() {
+  const answered = Object.keys(state.answers).length;
+  const pct = Math.round((answered/TOTAL_Q)*100);
+  document.getElementById('progressFill').style.width = pct+'%';
+  document.getElementById('progressText').textContent = answered+' / '+TOTAL_Q+' answered';
+  document.getElementById('livScore').textContent = state.score;
+}
+
+// ===== CHECK FUNCTIONS =====
+function checkMC(name, correct, exId, explanation) {
+  if (state.answers[name]) return;
+  const selected = document.querySelector(`input[name="${name}"]:checked`);
+  if (!selected) { showFeedback('fb-'+name, 'bad', '⚠️ Please select an answer first.'); return; }
+  const val = selected.value;
+  const isCorrect = val === correct;
+  const pts = isCorrect ? 3 : 0;
+  state.answers[name] = { value: val, correct: isCorrect, pts };
+  state.score += pts;
+
+  const block = document.getElementById(exId);
+  block.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+
+  // Style options
+  document.querySelectorAll(`input[name="${name}"]`).forEach(inp => {
+    inp.disabled = true;
+    if (inp.value === correct) inp.closest('.mc-opt').classList.add('correct-opt');
+    if (!isCorrect && inp.value === val) inp.closest('.mc-opt').classList.add('wrong-opt');
+  });
+
+  showFeedback('fb-'+name, isCorrect ? 'ok' : 'bad',
+    (isCorrect ? '✅ Correct! ' : '❌ Not quite. ') + explanation);
+  disableBtn(exId);
+  recordAnswer(name);
+  updateProgress();
+  saveState();
+}
+
+function checkFill(id, accepted, exId, explanation) {
+  if (state.answers[id]) return;
+  const input = document.getElementById(id);
+  const val = input.value.trim().toLowerCase();
+  const isCorrect = accepted.map(a=>a.toLowerCase()).includes(val);
+  const pts = isCorrect ? 3 : 0;
+  state.answers[id] = { value: val, correct: isCorrect, pts };
+  state.score += pts;
+
+  input.classList.add(isCorrect ? 'correct' : 'wrong');
+  input.disabled = true;
+
+  const block = document.getElementById(exId);
+  block.classList.add(isCorrect ? 'answered-correct' : 'answered-wrong');
+  showFeedback('fb-'+id, isCorrect ? 'ok' : 'bad',
+    (isCorrect ? '✅ Correct! ' : '❌ Not quite. ') + explanation);
+  disableBtn(exId);
+  recordAnswer(id);
+  updateProgress();
+  saveState();
+}
+
+function checkFillMulti(ids, accepted, exId, explanation) {
+  const key = ids.join('_');
+  if (state.answers[key]) return;
+  let allCorrect = true;
+  ids.forEach((id,i) => {
+    const input = document.getElementById(id);
+    const val = input.value.trim().toLowerCase();
+    const correct = accepted[i].toLowerCase();
+    if (val !== correct) allCorrect = false;
+    input.classList.add(val === correct ? 'correct' : 'wrong');
+    input.disabled = true;
+  });
+  const pts = allCorrect ? 4 : 0;
+  state.answers[key] = { correct: allCorrect, pts };
+  state.score += pts;
+  const block = document.getElementById(exId);
+  block.classList.add(allCorrect ? 'answered-correct' : 'answered-wrong');
+  showFeedback('fb-'+exId.replace('ex','q'), allCorrect ? 'ok' : 'bad',
+    (allCorrect ? '✅ Correct! ' : '❌ Not quite. ') + explanation);
+  disableBtn(exId);
+  // count as 2 answers
+  ids.forEach(id => recordAnswer(id));
+  updateProgress();
+  saveState();
+}
+
+function checkOpen(id, exId, explanation) {
+  if (state.answers[id]) return;
+  const ta = document.getElementById(id);
+  const val = ta.value.trim();
+  if (!val) { showFeedback('fb-'+id, 'bad', '⚠️ Please write something first!'); return; }
+  const pts = 3;
+  state.answers[id] = { value: val, correct: 'open', pts };
+  state.score += pts;
+  ta.disabled = true;
+  document.getElementById(exId).classList.add('answered-correct');
+  showFeedback('fb-'+id, 'info', explanation);
+  disableBtn(exId);
+  recordAnswer(id);
+  updateProgress();
+  saveState();
+}
+
+function checkStory() {
+  const answers = {
+    q27: ['woke up'], q28: ['was shining'], q29: ['were singing'],
+    q30: ['was running','ran'], q31: ['realized','realised'], q32: ['laughed']
+  };
+  let correct = 0;
+  Object.entries(answers).forEach(([id, accepted]) => {
+    if (state.answers[id]) return;
+    const input = document.getElementById(id);
+    const val = input.value.trim().toLowerCase();
+    const isC = accepted.includes(val);
+    if (isC) correct++;
+    input.classList.add(isC ? 'correct' : 'wrong');
+    input.disabled = true;
+    state.answers[id] = { value: val, correct: isC, pts: isC ? 2 : 0 };
+    state.score += isC ? 2 : 0;
+    recordAnswer(id);
+  });
+  document.getElementById('ex27').classList.add(correct >= 4 ? 'answered-correct' : 'answered-wrong');
+  showFeedback('fb-q27', correct >= 4 ? 'ok' : 'bad',
+    `${correct}/6 correct! ✅<br><small>Answers: <b>woke up</b> (PS) | <b>was shining</b> (PC) | <b>were singing</b> (PC) | <b>was running</b> (PC) | <b>realized</b> (PS) | <b>laughed</b> (PS)</small>`);
+  disableBtn('ex27');
+  updateProgress();
+  saveState();
+}
+
+function checkMatching() {
+  if (state.answers['tw_all']) return;
+  const correct = { tw1: 'both', tw2: 'ps', tw3: 'pc' };
+  const labels = { tw1: '"for three hours"', tw2: '"in 1990"', tw3: '"while"' };
+  let pts = 0;
+  let msg = '';
+  Object.entries(correct).forEach(([id, ans]) => {
+    const sel = document.getElementById(id);
+    const val = sel.value;
+    const isC = val === ans;
+    if (isC) pts+=2;
+    sel.style.borderColor = isC ? 'var(--success)' : 'var(--error)';
+    sel.disabled = true;
+    msg += `${labels[id]}: ${isC ? '✅' : '❌ → '+(ans==='pc'?'Past Continuous':ans==='ps'?'Past Simple':'Both')} &nbsp;`;
+  });
+  state.answers['tw_all'] = { pts };
+  state.score += pts;
+  document.getElementById('ex33').classList.add(pts >= 4 ? 'answered-correct' : 'answered-wrong');
+  showFeedback('fb-q33', pts >= 4 ? 'ok' : 'bad', msg);
+  disableBtn('ex33');
+  recordAnswer('tw_all');
+  updateProgress();
+  saveState();
+}
+
+function recordAnswer(key) {
+  // Just ensures key is in answers dict
+}
+
+function showFeedback(id, type, msg) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = `feedback show ${type}`;
+  el.innerHTML = msg;
+}
+
+function disableBtn(exId) {
+  const btn = document.querySelector(`#${exId} .check-btn`);
+  if (btn) btn.disabled = true;
+}
+
+// ===== FINAL SUBMIT =====
+function finalSubmit() {
+  state.submitted = true;
+  saveState();
+
+  const pct = Math.round((state.score / 100) * 100);
+  const clamped = Math.min(100, state.score);
+
+  let grade = '', color = '', msg = '';
+  if (clamped >= 90) { grade = 'Excellent! 🌟'; color = 'var(--success)'; msg = 'Outstanding work! You have a strong command of both tenses.'; }
+  else if (clamped >= 75) { grade = 'Very Good! 👏'; color = 'var(--accent1)'; msg = 'Great effort! Review the feedback for the questions you missed.'; }
+  else if (clamped >= 60) { grade = 'Good 👍'; color = 'var(--accent2)'; msg = 'Good progress! Focus on the time expressions and re-read the theory.'; }
+  else { grade = 'Keep Practicing 💪'; color = 'var(--accent3)'; msg = 'Don\'t give up! Go back to the theory section and try again.'; }
+
+  document.getElementById('bigScore').textContent = clamped + '%';
+  document.getElementById('bigScore').style.color = color;
+  document.getElementById('scoreGrade').textContent = grade;
+  document.getElementById('scoreMsg').textContent = msg;
+  document.getElementById('finalSubmit').style.display = 'none';
+  document.getElementById('resultsPanel').classList.add('show');
+  document.getElementById('resultsPanel').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ===== RESET =====
+function resetAll() {
+  if (!confirm('Are you sure? This will erase all your answers.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  location.reload();
+}
+
+// ===== RESTORE STATE FROM LOCALSTORAGE =====
+function restoreState() {
+  loadState();
+  // Update timer start
+  if (!state.startTime) state.startTime = Date.now();
+
+  // Restore MC answers
+  ['q1','q2','q3','q4','q5','q6','q7','q14','q15'].forEach(name => {
+    if (state.answers[name]) {
+      const r = state.answers[name];
+      const inp = document.querySelector(`input[name="${name}"][value="${r.value}"]`);
+      if (inp) inp.checked = true;
+    }
+  });
+
+  // Restore fill inputs
+  ['q8','q9','q11','q12'].forEach(id => {
+    if (state.answers[id]) {
+      const el = document.getElementById(id);
+      if (el) { el.value = state.answers[id].value; el.disabled = true; el.classList.add(state.answers[id].correct ? 'correct':'wrong'); }
+    }
+  });
+
+  // Restore textareas
+  ['q16','q17','q18','q19','q20','q21','q22','q23','q24','q25','q26'].forEach(id => {
+    if (state.answers[id]) {
+      const el = document.getElementById(id);
+      if (el) { el.value = state.answers[id].value; el.disabled = true; }
+    }
+  });
+
+  // Story
+  ['q27','q28','q29','q30','q31','q32'].forEach(id => {
+    if (state.answers[id]) {
+      const el = document.getElementById(id);
+      if (el) { el.value = state.answers[id].value; el.disabled = true; el.classList.add(state.answers[id].correct ? 'correct':'wrong'); }
+    }
+  });
+
+  updateProgress();
+  if (state.submitted) {
+    document.getElementById('finalSubmit').style.display = 'none';
+    const clamped = Math.min(100, state.score);
+    document.getElementById('bigScore').textContent = clamped + '%';
+    document.getElementById('resultsPanel').classList.add('show');
+  }
+}
+
+// ===== INIT =====
+restoreState();
+updateProgress();
+</script>
+</body>
+</html>
